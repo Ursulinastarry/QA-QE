@@ -1,0 +1,120 @@
+nav ul{
+    list-style-type: none;
+    
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+ul,nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    font-size: 20px;
+}
+li{
+    padding-right: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#login{
+    border: none;
+    background-color: white;
+}
+#Register{
+    border-radius: 30px;
+    background-color: white;
+}
+#Learn{
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    height: 8vh;
+    width: 25vw;
+    margin-top: 20px;
+    align-items: center;
+}
+#all{
+    display: flex;
+    flex-direction: row;
+}
+#image img{
+    height: 50vh;
+    width: 40vh;
+    padding-top: 30px;
+    
+}
+#make-maker{
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#make-learn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 40px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#footer,img{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    padding-right: 30px;
+    padding-top: 20px;
+}
+.Register,button{
+display: flex;
+flex-direction: row;
+padding-left: 20px;
+font-size: 20px;
+align-items: end;
+}
+.about{
+    padding-right: 60px;
+}
+h2{
+    font-size: 40px;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.dropdown{
+    display: flex;
+    flex-direction: row;
+}
+.dropdown-btn{
+    border: none;
+    background-color: white;
+}
+.dropdown-btn {
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown:focus-within .dropdown-btn {
+    background-size: contain;
+  }
+  .dropdown-content{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  
+  .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+ 
+  

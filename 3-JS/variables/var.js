@@ -1,2 +1,2 @@
-let num=5
+let num=55
 console.log(num)

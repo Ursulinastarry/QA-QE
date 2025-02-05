@@ -16,6 +16,6 @@ const isAdmin = false
 let myData={}
 console.log(myData)
 console.log(typeof myData)
-/*myData.name="linaaa"
-muData.uni="dkut"
-console.table(myData)*/
+myData.name="linaaa"
+myData.uni="dkut"
+console.table(myData)

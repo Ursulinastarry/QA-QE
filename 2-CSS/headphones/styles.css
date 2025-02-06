@@ -1,0 +1,292 @@
+body{
+    background-color: white;
+    color: gray;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif ;
+    align-items: center;
+
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    margin-left: 20px;
+}
+.left{
+    padding: 20px;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20%;
+
+}
+.right{
+    padding: 20px;
+    align-content: end;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.right img{
+    padding: 20px;
+    height: 4vh;
+}
+nav ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+nav li{
+    padding-right: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.containers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.container1{
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 45vw;
+    height: 95vh;
+    margin-left: 20px;
+    margin-right: 50px;
+    margin-bottom: 30px;
+}
+.process{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.process ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+}
+.process img{
+    color: inherit;
+}
+
+#account{
+    color: rgb(76, 76, 252);
+}
+#acc{
+    color: black;
+    align-content: center;
+}
+.email input{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 25vw;
+    align-items: center;
+    
+}
+.container2{
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 45vw;
+    height: 95vh;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+input{
+    background-color: rgb(199, 194, 194);
+    color: black;
+}
+.container1 button{
+    background-color: rgb(54, 54, 231);
+    color: wheat;
+    border-radius: 20px;
+    width: 150px;
+    height: 40px;
+    border: none;
+}
+.reg-log{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    margin-left: 50px;
+    width: 17vw;
+    font-size: 15px;
+}
+.reg-log p{
+color: black;
+}
+.cancel{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 15px;
+    align-items: center;
+}
+.cancel-order{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+
+}
+.canc{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 17vw;
+    padding: 30px;
+    margin-left: 50px;
+}
+.canc p{
+    color: black;
+
+}
+
+.gift{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+}
+.gift input{
+    background-color: rgb(175, 160, 160);
+    margin-right: 20px;
+
+}
+#apply{
+    background-color: inherit;
+    border-color: rgb(76, 76, 252);
+    color: rgb(76, 76, 252);
+}
+.subtotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 17vw;
+}
+.Tax{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 17vw;
+
+}
+.Shipping{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 17vw;
+
+}
+#free{
+    color: rgb(76, 76, 252);
+}
+.total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 17vw;
+
+}
+#total{
+    font-weight: bold;
+}
+.order{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20vw;
+}
+.add{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.name{
+    font-size: 18px;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60px;
+}
+.buttons button{
+    height: 20px
+}
+hr{
+    border-color: rgb(176, 176, 209);
+    width: 500px;
+    align-content: start;
+}
+
+#empty{
+    background-color: rgb(199, 194, 194);
+    width: 20vw;
+    
+}
+input{
+    padding: 10px;
+    border: none;
+}
+#profile{
+    padding: 20px;
+    height: 5vh;
+}
+#logo{
+    height: 5vh;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    padding-right: 100px;
+}
+#email {
+position: relative;
+width: 25vw;
+display: flex;
+align-items: center;
+
+}
+#email img[src="./images/tick.png"]{
+    position: absolute;
+    right:0;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+#password {
+    position: relative;
+    width: 25vw;
+    display: flex;
+    align-items: center;
+    
+    }
+#password img[src="./images/tick.png"]{
+    position: absolute;
+    right:0;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}

@@ -1,0 +1,26 @@
+Password Authentication:
+
+Why is it important to store passwords in a hashed format?
+Storing passwords in a hashed format ensures that even if an attacker gains access to the database, they won’t obtain the actual passwords. Hashing is a one-way process, making it extremely difficult to retrieve the original password from its hash. This greatly reduces the risk of password theft and unauthorized access compared to storing plain text passwords.
+Multi-Factor Authentication (MFA):
+
+How does implementing MFA enhance the security of the transaction process?
+MFA adds an extra layer of security by requiring the user to verify their identity using a second factor (e.g., a temporary code sent to a mobile device) in addition to their password. This means that even if an attacker manages to obtain the user’s password, they still cannot complete the transaction without the second factor. MFA helps prevent attacks such as phishing, credential stuffing, and other forms of unauthorized access.
+Balance Verification:
+
+Why is it necessary to check the account balance before allowing a withdrawal?
+Checking the account balance is crucial to ensure that the user has sufficient funds for the requested withdrawal. Skipping this step could lead to negative balances, overdrafts, and potential financial fraud. It also helps maintain the integrity of the banking system by preventing unauthorized or erroneous transactions.
+Daily Transaction Limit:
+
+What purpose does the daily transaction limit serve?
+The daily transaction limit restricts the amount a user can withdraw within a day. This limit is a security measure designed to reduce the risk of significant losses if an account is compromised. It also helps prevent excessive withdrawals that could indicate fraudulent activity, thus protecting both the user and the financial institution.
+Improvement (Fraud Detection):
+
+How would you add extra features such as fraud detection? What additional data would you track?
+To add fraud detection features, you could implement algorithms that analyze transaction patterns to detect anomalies. This might include tracking:
+Transaction Frequency: Monitoring how often withdrawals occur.
+Withdrawal Amounts: Comparing current withdrawals to historical averages.
+Geolocation and Device Information: Checking if the transaction originates from an unusual location or device.
+Time of Transaction: Identifying transactions that occur at odd hours.
+User Behavior Patterns: Looking for deviations in user behavior over time.
+Using this data, you can set thresholds or use machine learning models to flag or block transactions that appear suspicious, thereby enhancing the overall security of the banking system.

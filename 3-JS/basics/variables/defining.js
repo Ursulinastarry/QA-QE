@@ -46,6 +46,7 @@ console.log("i am a girl".substr(8,2))//from index 8,2 characters
 console.log('    brrrrr    ')
 console.log('    brrrrr    '.trim())//trimStart-trims left space,trimEnd
 
+//booleans
 
 
 

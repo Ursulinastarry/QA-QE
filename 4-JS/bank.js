@@ -60,7 +60,7 @@ const user = {
 console.log(processWithdrawal(user, "securePassword123", "987654", 200)); 
 // Expected output: "Transaction Successful! New Balance: 800"
 
-console.log(processWithdrawal(user, "wrongPassword", "987654", 200)); 
+console.log(processWithdrawal(user, "nilisahau", "987654", 200)); 
 
 console.log(processWithdrawal(user, "securePassword123", "000000", 200)); 
 

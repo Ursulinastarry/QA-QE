@@ -15,6 +15,17 @@
     console.log(isPalindrome('A man, a plan, a canal, Panama')); //true
     console.log(isPalindrome('Was it a car or a cat I saw?')); // true 
     console.log(isPalindrome('Hello, World!')); // false
+
+    function areAnagrams (str1, str2) { 
+        // Your code here 
+        const sStr=(str)=>str.toLowerCase().split("").sort().join("")
+        return sStr(str1)==sStr(str2)
+    }
+        // Test Cases 
+        console.log(areAnagrams('Listen', 'Silent')); 
+        // true 
+        console.log(areAnagrams('Hello', 'World')); 
+        // false
 //2
 function reverse(str){
 return str.split("").reverse().join("")
@@ -43,16 +54,7 @@ function longestPalindromicSubstring(s) {
     console.log(longestPalindromicSubstring('cbbd')); 
     // Output: 'bb'
 //4
-function areAnagrams (str1, str2) { 
-    // Your code here 
-    const sStr=(str)=>str.toLowerCase().split("").sort().join("")
-    return sStr(str1)==sStr(str2)
-}
-    // Test Cases 
-    console.log(areAnagrams('Listen', 'Silent')); 
-    // true 
-    console.log(areAnagrams('Hello', 'World')); 
-    // false
+
 //5
 function removeDuplicates(str){
     let letter = new Set();

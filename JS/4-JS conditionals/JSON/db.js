@@ -42,4 +42,20 @@ const products = [
     }
   ];
 
-  console.log(JSON.stringify(products,null,2))
+  function displayProducts() {
+    const container = document.getElementById("productContainer");
+    products.forEach(product => {
+        const productCard = document.createElement("div");
+        productCard.classList.add("product-card");
+        productCard.innerHTML = `
+            <h3>${product.name}</h3>
+            <p><strong>Category:</strong> ${product.category}</p>
+            <p>${product.description}</p>
+            <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+            <p><strong>Stock:</strong> ${product.stock} available</p>
+        `;
+        container.appendChild(productCard);
+    });
+}
+
+displayProducts();

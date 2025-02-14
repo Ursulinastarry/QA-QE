@@ -1,0 +1,17 @@
+{
+  "name": "5-js-arrays",
+  "version": "1.0.0",
+  "main": "arrays.js",
+  "type": "module",
+  "scripts": {
+    "dev":"nodemon map.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pnpm": "^10.3.0"
+  }
+}

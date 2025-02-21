@@ -19,10 +19,14 @@
             <label for="sortBy">Sort By:</label>
             <select id="sortBy">
                 <option value="year">Year</option>
-                <option value="pages">Pages</option>
+                <option value="title">title</option>
+                <option value="title">author</option>
+
             </select>
 
             <input type="text" id="searchInput" placeholder="Search by title...">
+            <img  id="cart" src="./cart-icon-28344.png" alt="">  
+            <span id="cartItems">0</span>
         </div>
 
         <ul id="booksList"></ul>
@@ -31,9 +35,12 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p id="modalMessage"></p>
+            <div id="modalMessage"></div>
+            <div id="modalDetails"></div>
+
         </div>
     </div>
+    
 
     <script src="script.js"></script>
 </body>

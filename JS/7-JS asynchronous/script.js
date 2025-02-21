@@ -118,13 +118,13 @@ async function applyFilters() {
         const existingItem = cart.find(item => item.title === title);
     
         if (existingItem) {
-            existingItem.quantity++; // ✅ Increase quantity if it exists
+            existingItem.quantity++;
         } else {
             cart.push({
                 title: title,
                 author: author,
                 price: price,
-                quantity: 1 // ✅ New item starts with quantity 1
+                quantity: 1 
             });
         }
     

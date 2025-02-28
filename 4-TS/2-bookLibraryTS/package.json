@@ -1,0 +1,28 @@
+{
+  "name": "booklibraryts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start": "tsc --watch",
+    "dev": "nodemon src/index.ts",
+    "dev:start": "nodemon dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "vite",
+    "json": "json-server --watch books.json --port 3000",
+    "build":"tsc"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1"
+  },
+  "dependencies": {
+    "json-server": "1.0.0-beta.3"
+  }
+}

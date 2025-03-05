@@ -20,6 +20,18 @@ interface CartItem {
 }
 
 let cart: CartItem[] = [];
+function updateURL(params: Record<string, string | null>) {
+    const url = new URL(window.location.href);
+    Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+            url.searchParams.set(key, value);
+        } else {
+            url.searchParams.delete(key);
+        }
+    });
+    window.history.pushState({}, '', url.toString());
+    fetchBooks(); // Fetch books based on the updated URL
+}
 
 async function fetchBooks(): Promise<Book[]> {
     try {
@@ -32,6 +44,20 @@ async function fetchBooks(): Promise<Book[]> {
         return [];
     }
 }
+
+document.getElementById('search-input')?.addEventListener('input', (event) => {
+    updateURL({ search: (event.target as HTMLInputElement).value });
+});
+
+document.getElementById('sort-select')?.addEventListener('change', (event) => {
+    updateURL({ sort: (event.target as HTMLSelectElement).value });
+});
+
+document.getElementById('genre-filter')?.addEventListener('change', (event) => {
+    updateURL({ genre: (event.target as HTMLSelectElement).value });
+});
+
+window.addEventListener('load', fetchBooks);
 
 async function displayBooks(books: Book[]): Promise<void> {
     const booksList = document.getElementById("booksList") as HTMLUListElement;
@@ -58,43 +84,7 @@ async function displayBooks(books: Book[]): Promise<void> {
     });
 }
 
-async function populateFilters(): Promise<void> {
-    const books = await fetchBooks();
-    const genres = new Set<string>();
 
-    books.forEach((book) => genres.add(book.genre));
-
-    const genreFilter = document.getElementById("genreFilter") as HTMLSelectElement;
-    genreFilter.innerHTML = '<option value="">All</option>';
-    genres.forEach((genre) => {
-        const option = document.createElement("option");
-        option.value = genre;
-        option.textContent = genre;
-        genreFilter.appendChild(option);
-    });
-}
-
-async function applyFilters(): Promise<void> {
-    let books = await fetchBooks();
-    const selectedGenre = (document.getElementById("genreFilter") as HTMLSelectElement).value.toLowerCase();
-    const sortBy = (document.getElementById("sortBy") as HTMLSelectElement).value;
-    const searchQuery = (document.getElementById("searchInput") as HTMLInputElement).value.toLowerCase();
-
-    books = books.filter((book) =>
-        (selectedGenre === "" || book.genre.toLowerCase() === selectedGenre) &&
-        (searchQuery === "" || book.title.toLowerCase().includes(searchQuery))
-    );
-
-    if (sortBy === "year") {
-        books.sort((a, b) => a.year - b.year);
-    } else if (sortBy === "title") {
-        books.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sortBy === "author") {
-        books.sort((a, b) => a.author.localeCompare(b.author));
-    }
-
-    displayBooks(books);
-}
 
 function addToCart(title: string, author: string, price: number): void {
     const existingItem = cart.find((item) => item.title === title);
@@ -157,15 +147,13 @@ async function showCartModal(): Promise<void> {
     modal.style.display = "flex";
 }
 
-document.getElementById("genreFilter")?.addEventListener("change", applyFilters);
-document.getElementById("sortBy")?.addEventListener("change", applyFilters);
-document.getElementById("searchInput")?.addEventListener("input", applyFilters);
+
 document.getElementById("cart")?.addEventListener("click", showCartModal);
 
 async function init(): Promise<void> {
     const books = await fetchBooks();
     displayBooks(books);
-    populateFilters();
+   
     updateCartCountDisplay();
 }
 

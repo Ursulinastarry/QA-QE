@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+        }
+
+        .cartItems {
+            font-size: large;
+            font-weight: bolder;
+            color: pink;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        select,
+        input {
+            padding: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .book {
+            background: white;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .book img {
+            width: 50px;
+            border-radius: 5px;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .close {
+            cursor: pointer;
+            font-size: 20px;
+            float: right;
+        }
+
+        .filters img {
+            width: 50px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: pink;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .plus-minus {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📚 Book Library</h1>
+
+        <div class="filters">
+            <label for="genreFilter">Filter by Genre:</label>
+            <select id="genreFilter">
+                <option value="">All</option>
+            </select>
+
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy">
+                <option value="year">Year</option>
+                <option value="title">title</option>
+                <option value="title">author</option>
+
+            </select>
+
+            <input type="text" id="searchInput" placeholder="Search by title...">
+            <img id="cart" src="./cart-icon-28344.png" alt="">
+            <span id="cartItems">0</span>
+        </div>
+
+        <ul id="booksList"></ul>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalMessage"></div>
+            <div id="modalDetails"></div>
+
+        </div>
+    </div>
+
+
+    <script src="./src/index.js"></script>
+</body>
+
+</html>

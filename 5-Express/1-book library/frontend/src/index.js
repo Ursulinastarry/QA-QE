@@ -8,50 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b, _c, _d;
 let cartCount = 0;
 let cart = [];
-function updateURL(params) {
-    const url = new URL(window.location.href);
-    Object.entries(params).forEach(([key, value]) => {
-        if (value) {
-            url.searchParams.set(key, value);
-        }
-        else {
-            url.searchParams.delete(key);
-        }
-    });
-    window.history.pushState({}, '', url.toString());
-    fetchBooks(); // Fetch books based on the updated URL
-}
 function fetchBooks() {
-    return __awaiter(this, void 0, void 0, function* () {
+    return __awaiter(this, arguments, void 0, function* (params = {}) {
         try {
-            const queryParams = new URLSearchParams().toString();
+            const queryParams = new URLSearchParams(params).toString();
             const url = `http://localhost:4000/api/books${queryParams ? `?${queryParams}` : ''}`;
+            console.log("Fetching books from:", url);
             const response = yield fetch(url);
             return yield response.json();
         }
         catch (error) {
-            console.error(error);
+            console.error("Error fetching books:", error);
             return [];
         }
     });
 }
-(_a = document.getElementById('search-input')) === null || _a === void 0 ? void 0 : _a.addEventListener('input', (event) => {
-    updateURL({ search: event.target.value });
-});
-(_b = document.getElementById('sort-select')) === null || _b === void 0 ? void 0 : _b.addEventListener('change', (event) => {
-    updateURL({ sort: event.target.value });
-});
-(_c = document.getElementById('genre-filter')) === null || _c === void 0 ? void 0 : _c.addEventListener('change', (event) => {
-    updateURL({ genre: event.target.value });
-});
-window.addEventListener('load', fetchBooks);
 function displayBooks(books) {
     return __awaiter(this, void 0, void 0, function* () {
         const booksList = document.getElementById("booksList");
         booksList.innerHTML = "";
+        if (books.length === 0) {
+            booksList.innerHTML = "<p>No books found matching your search criteria.</p>";
+            return;
+        }
         books.forEach((book) => {
             var _a;
             const bookItem = document.createElement("li");
@@ -71,6 +52,40 @@ function displayBooks(books) {
                 addToCart(book.title, book.author, book.price);
             });
         });
+    });
+}
+function populateFilters() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const books = yield fetchBooks();
+        const genres = new Set();
+        books.forEach((book) => genres.add(book.genre));
+        const genreFilter = document.getElementById("genreFilter");
+        genreFilter.innerHTML = '<option value="">All Genres</option>';
+        genres.forEach((genre) => {
+            const option = document.createElement("option");
+            option.value = genre;
+            option.textContent = genre;
+            genreFilter.appendChild(option);
+        });
+    });
+}
+function handleSearch() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const searchQuery = document.getElementById("searchInput").value.trim();
+        const selectedGenre = document.getElementById("genreFilter").value;
+        const sortBy = document.getElementById("sortBy").value;
+        const params = {};
+        if (searchQuery) {
+            params.search = searchQuery;
+        }
+        if (selectedGenre) {
+            params.genre = selectedGenre;
+        }
+        if (sortBy) {
+            params.sortBy = sortBy;
+        }
+        const books = yield fetchBooks(params);
+        displayBooks(books);
     });
 }
 function addToCart(title, author, price) {
@@ -130,12 +145,42 @@ function showCartModal() {
         modal.style.display = "flex";
     });
 }
-(_d = document.getElementById("cart")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", showCartModal);
+function setupEventListeners() {
+    var _a, _b, _c;
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            handleSearch();
+        }
+    });
+    // Add search button event listener if you have one
+    const searchButton = document.getElementById("searchButton");
+    if (searchButton) {
+        searchButton.addEventListener("click", handleSearch);
+    }
+    // Add event listeners for filters
+    (_a = document.getElementById("genreFilter")) === null || _a === void 0 ? void 0 : _a.addEventListener("change", handleSearch);
+    (_b = document.getElementById("sortBy")) === null || _b === void 0 ? void 0 : _b.addEventListener("change", handleSearch);
+    // Add event listener for cart
+    (_c = document.getElementById("cart")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", showCartModal);
+    // Close modal functionality if needed
+    const closeModalButton = document.getElementById("closeModal");
+    if (closeModalButton) {
+        closeModalButton.addEventListener("click", () => {
+            const modal = document.getElementById("modal");
+            modal.style.display = "none";
+        });
+    }
+}
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
+        // Initial fetch of all books (no filters)
         const books = yield fetchBooks();
         displayBooks(books);
+        populateFilters();
         updateCartCountDisplay();
+        setupEventListeners();
     });
 }
 init();

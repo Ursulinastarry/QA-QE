@@ -8,11 +8,13 @@ import path from 'path';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT ;
 
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
+app.use(cors())
+
+// app.use(cors({
+//   origin: 'http://localhost:5173'
+// }));
 
 const _dirname = path.resolve();
 
@@ -22,13 +24,15 @@ const bookData = readFileSync(
 );
 
 const books = JSON.parse(bookData).Books;
+console.log(books)
+
 
 app.get('/api/books', (req: Request, res: Response) => {
-  try {
+    try {
     const { 
       search, 
       genre, 
-      yearRange, 
+      year, 
       sortBy 
     } = req.query;
 
@@ -49,45 +53,15 @@ app.get('/api/books', (req: Request, res: Response) => {
       );
     }
 
-    if (yearRange) {
-      switch(yearRange) {
-        case 'pre-1900':
-          filteredBooks = filteredBooks.filter(book => parseInt(book.year) < 1900);
-          break;
-        case '1900-1950':
-          filteredBooks = filteredBooks.filter(book => 
-            parseInt(book.year) >= 1900 && parseInt(book.year) <= 1950
-          );
-          break;
-        case 'post-1950':
-          filteredBooks = filteredBooks.filter(book => parseInt(book.year) > 1950);
-          break;
-      }
-    }
-
-    if (sortBy) {
-      switch(sortBy) {
-        case 'title-asc':
-          filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
-          break;
-        case 'title-desc':
-          filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
-          break;
-        case 'year-asc':
-          filteredBooks.sort((a, b) => parseInt(a.year) - parseInt(b.year));
-          break;
-        case 'year-desc':
-          filteredBooks.sort((a, b) => parseInt(b.year) - parseInt(a.year));
-          break;
-        case 'pages-asc':
-          filteredBooks.sort((a, b) => parseInt(a.pages) - parseInt(b.pages));
-          break;
-        case 'pages-desc':
-          filteredBooks.sort((a, b) => parseInt(b.pages) - parseInt(a.pages));
-          break;
-      }
-    }
-
+    
+    if (sortBy === "year") {
+      filteredBooks.sort((a, b) => a.year - b.year);
+  } else if (sortBy === "title") {
+      filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortBy === "author") {
+      filteredBooks.sort((a, b) => a.author.localeCompare(b.author));
+  }
+    
     const stats = {
       totalBooks: filteredBooks.length,
       avgPages: filteredBooks.length 
@@ -99,20 +73,16 @@ app.get('/api/books', (req: Request, res: Response) => {
       uniqueGenres: new Set(filteredBooks.map(book => book.genre)).size
     };
 
-    res.json({
-      books: filteredBooks,
-      stats
-    });
+    res.json(filteredBooks);
 
   } catch (error) {
     console.error("Error filtering books:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 app.get('/', (req: Request, res: Response) => {
-  res.json(books);
-});
+  res.send(books)
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

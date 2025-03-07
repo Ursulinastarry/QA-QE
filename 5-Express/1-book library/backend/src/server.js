@@ -10,16 +10,18 @@ const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT || 5000;
-app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173'
-}));
+const port = process.env.PORT;
+app.use((0, cors_1.default)());
+// app.use(cors({
+//   origin: 'http://localhost:5173'
+// }));
 const _dirname = path_1.default.resolve();
 const bookData = (0, fs_1.readFileSync)(path_1.default.join(_dirname, "src", "db", "books.json"), "utf-8");
 const books = JSON.parse(bookData).Books;
+console.log(books);
 app.get('/api/books', (req, res) => {
     try {
-        const { search, genre, yearRange, sortBy } = req.query;
+        const { search, genre, year, sortBy } = req.query;
         let filteredBooks = [...books];
         if (search) {
             const searchTerm = search.toLowerCase().trim();
@@ -30,40 +32,14 @@ app.get('/api/books', (req, res) => {
         if (genre) {
             filteredBooks = filteredBooks.filter(book => book.genre.toLowerCase() === genre.toLowerCase());
         }
-        if (yearRange) {
-            switch (yearRange) {
-                case 'pre-1900':
-                    filteredBooks = filteredBooks.filter(book => parseInt(book.year) < 1900);
-                    break;
-                case '1900-1950':
-                    filteredBooks = filteredBooks.filter(book => parseInt(book.year) >= 1900 && parseInt(book.year) <= 1950);
-                    break;
-                case 'post-1950':
-                    filteredBooks = filteredBooks.filter(book => parseInt(book.year) > 1950);
-                    break;
-            }
+        if (sortBy === "year") {
+            filteredBooks.sort((a, b) => a.year - b.year);
         }
-        if (sortBy) {
-            switch (sortBy) {
-                case 'title-asc':
-                    filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
-                    break;
-                case 'title-desc':
-                    filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
-                    break;
-                case 'year-asc':
-                    filteredBooks.sort((a, b) => parseInt(a.year) - parseInt(b.year));
-                    break;
-                case 'year-desc':
-                    filteredBooks.sort((a, b) => parseInt(b.year) - parseInt(a.year));
-                    break;
-                case 'pages-asc':
-                    filteredBooks.sort((a, b) => parseInt(a.pages) - parseInt(b.pages));
-                    break;
-                case 'pages-desc':
-                    filteredBooks.sort((a, b) => parseInt(b.pages) - parseInt(a.pages));
-                    break;
-            }
+        else if (sortBy === "title") {
+            filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+        }
+        else if (sortBy === "author") {
+            filteredBooks.sort((a, b) => a.author.localeCompare(b.author));
         }
         const stats = {
             totalBooks: filteredBooks.length,
@@ -75,10 +51,7 @@ app.get('/api/books', (req, res) => {
                 : null,
             uniqueGenres: new Set(filteredBooks.map(book => book.genre)).size
         };
-        res.json({
-            books: filteredBooks,
-            stats
-        });
+        res.json(filteredBooks);
     }
     catch (error) {
         console.error("Error filtering books:", error);
@@ -86,7 +59,7 @@ app.get('/api/books', (req, res) => {
     }
 });
 app.get('/', (req, res) => {
-    res.json(books);
+    res.send(books);
 });
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

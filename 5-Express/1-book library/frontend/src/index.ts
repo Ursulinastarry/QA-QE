@@ -1,4 +1,3 @@
-
 let cartCount: number = 0;
 
 interface Book {
@@ -20,48 +19,29 @@ interface CartItem {
 }
 
 let cart: CartItem[] = [];
-function updateURL(params: Record<string, string | null>) {
-    const url = new URL(window.location.href);
-    Object.entries(params).forEach(([key, value]) => {
-        if (value) {
-            url.searchParams.set(key, value);
-        } else {
-            url.searchParams.delete(key);
-        }
-    });
-    window.history.pushState({}, '', url.toString());
-    fetchBooks(); // Fetch books based on the updated URL
-}
 
-async function fetchBooks(): Promise<Book[]> {
+async function fetchBooks(params: Record<string, string> = {}): Promise<Book[]> {
     try {
-        const queryParams=new URLSearchParams()  .toString();
-        const url=`http://localhost:4000/api/books${queryParams ? `?${queryParams}`: ''}`                                                                                                                                  
+        const queryParams = new URLSearchParams(params).toString();
+        const url = `http://localhost:4000/api/books${queryParams ? `?${queryParams}` : ''}`;
+        console.log("Fetching books from:", url);
+        
         const response = await fetch(url);
         return await response.json();
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching books:", error);
         return [];
     }
 }
 
-document.getElementById('search-input')?.addEventListener('input', (event) => {
-    updateURL({ search: (event.target as HTMLInputElement).value });
-});
-
-document.getElementById('sort-select')?.addEventListener('change', (event) => {
-    updateURL({ sort: (event.target as HTMLSelectElement).value });
-});
-
-document.getElementById('genre-filter')?.addEventListener('change', (event) => {
-    updateURL({ genre: (event.target as HTMLSelectElement).value });
-});
-
-window.addEventListener('load', fetchBooks);
-
 async function displayBooks(books: Book[]): Promise<void> {
     const booksList = document.getElementById("booksList") as HTMLUListElement;
     booksList.innerHTML = "";
+
+    if (books.length === 0) {
+        booksList.innerHTML = "<p>No books found matching your search criteria.</p>";
+        return;
+    }
 
     books.forEach((book) => {
         const bookItem = document.createElement("li");
@@ -84,7 +64,44 @@ async function displayBooks(books: Book[]): Promise<void> {
     });
 }
 
+async function populateFilters(): Promise<void> {
+    const books = await fetchBooks();
+    const genres = new Set<string>();
 
+    books.forEach((book) => genres.add(book.genre));
+
+    const genreFilter = document.getElementById("genreFilter") as HTMLSelectElement;
+    genreFilter.innerHTML = '<option value="">All Genres</option>';
+    genres.forEach((genre) => {
+        const option = document.createElement("option");
+        option.value = genre;
+        option.textContent = genre;
+        genreFilter.appendChild(option);
+    });
+}
+
+async function handleSearch(): Promise<void> {
+    const searchQuery = (document.getElementById("searchInput") as HTMLInputElement).value.trim();
+    const selectedGenre = (document.getElementById("genreFilter") as HTMLSelectElement).value;
+    const sortBy = (document.getElementById("sortBy") as HTMLSelectElement).value;
+    
+    const params: Record<string, string> = {};
+    
+    if (searchQuery) {
+        params.search = searchQuery;
+    }
+    
+    if (selectedGenre) {
+        params.genre = selectedGenre;
+    }
+    
+    if (sortBy) {
+        params.sortBy = sortBy;
+    }
+    
+    const books = await fetchBooks(params);
+    displayBooks(books);
+}
 
 function addToCart(title: string, author: string, price: number): void {
     const existingItem = cart.find((item) => item.title === title);
@@ -147,14 +164,45 @@ async function showCartModal(): Promise<void> {
     modal.style.display = "flex";
 }
 
-
-document.getElementById("cart")?.addEventListener("click", showCartModal);
+function setupEventListeners(): void {
+    const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+    searchInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            handleSearch();
+        }
+    });
+    
+    // Add search button event listener if you have one
+    const searchButton = document.getElementById("searchButton");
+    if (searchButton) {
+        searchButton.addEventListener("click", handleSearch);
+    }
+    
+    // Add event listeners for filters
+    document.getElementById("genreFilter")?.addEventListener("change", handleSearch);
+    document.getElementById("sortBy")?.addEventListener("change", handleSearch);
+    
+    // Add event listener for cart
+    document.getElementById("cart")?.addEventListener("click", showCartModal);
+    
+    // Close modal functionality if needed
+    const closeModalButton = document.getElementById("closeModal");
+    if (closeModalButton) {
+        closeModalButton.addEventListener("click", () => {
+            const modal = document.getElementById("modal") as HTMLDivElement;
+            modal.style.display = "none";
+        });
+    }
+}
 
 async function init(): Promise<void> {
+    // Initial fetch of all books (no filters)
     const books = await fetchBooks();
     displayBooks(books);
-   
+    populateFilters();
     updateCartCountDisplay();
+    setupEventListeners();
 }
 
 init();

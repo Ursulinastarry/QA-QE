@@ -1,0 +1,95 @@
+.text-decoration-line-through {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  /* General Styles */
+.container {
+    width: 60vw;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Title */
+  h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Task Input */
+  .task-input {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .task-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .task-input button,.done {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .task-input button:hover {
+    background: #218838;
+  }
+  
+  /* Task List */
+  .task-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .task-item span {
+    flex: 1;
+    cursor: pointer;
+  }
+  
+  .task-item.completed span {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  
+  /* Delete Button */
+  button{
+    background: transparent;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    color: darkred;
+  }
+  body{
+    background-image: url(/6-Angular/todo-app/src/pexels-content-pixie-1405717-2736499.jpg);
+  }
+  

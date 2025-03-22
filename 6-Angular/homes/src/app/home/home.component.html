@@ -1,0 +1,10 @@
+<h1>Hope you are having a good day💕</h1>
+
+<div class="todo-item" [class.completed]="todo.completed">
+    <input 
+      type="checkbox" 
+      [checked]="todo.completed"
+      (change)="onToggle()"
+    />
+    <span class="todo-text">{{ todo.text }}</span>
+  </div>

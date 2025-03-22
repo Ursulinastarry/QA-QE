@@ -1,0 +1,30 @@
+<!-- <app-todo></app-todo> -->
+
+<div class="container">
+  <h1>Hey Lina,hope you are having a good day💕</h1>
+
+  <h2>My To-Do List</h2>
+
+  <div class="task-input">
+    <input [(ngModel)]="newTask" type="text" placeholder="Enter a new task..." />
+    <button (click)="addTask()">Add</button>
+  </div>
+
+  <ul class="task-list">
+    <li *ngFor="let task of tasks; let i = index">
+      <div class="task-item">
+        <button (click)="toggleTask(i)" class="done">
+          {{ task.completed ? 'Undo' : 'Done' }}
+        </button>
+        <span [class.text-decoration-line-through]="task.completed">{{ task.text }}</span>
+        <button (click)="removeTask(i)" class="btn btn-sm btn-danger">❌</button>
+      </div>
+    </li>
+  </ul>
+  
+</div>
+
+
+
+
+<router-outlet></router-outlet>

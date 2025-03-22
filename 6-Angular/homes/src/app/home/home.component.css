@@ -1,0 +1,26 @@
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .todo-item.completed {
+    background-color: #f0f0f0;
+  }
+  
+  .todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .todo-text {
+    font-size: 16px;
+  }

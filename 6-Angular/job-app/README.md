@@ -1,3 +1,7 @@
+https://github.com/user-attachments/assets/47648d5c-53c7-4b2a-a081-8be3db0af5be
+
+
+
 # JobApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
@@ -29,6 +33,9 @@ ng generate --help
 ## Building
 
 To build the project run:
+
+
+
 
 ```bash
 ng build

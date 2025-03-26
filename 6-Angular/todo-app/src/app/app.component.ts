@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NgFor} from '@angular/common';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,CommonModule,FormsModule,NgFor],
@@ -11,15 +12,23 @@ import { NgFor} from '@angular/common';
   
 })
 export class AppComponent {
-  
+
   title = 'todo-app';
-  tasks: { text: string; completed: boolean }[] = [];
+  tasks: { text: string; completed: boolean; dueDate?: string }[] = [];
   newTask: string = '';
+  dueDate: string = '';
 
   addTask() {
-    if (this.newTask.trim() !== '') {
-      this.tasks.push({ text: this.newTask, completed: false });
-      this.newTask = '';  // Clear input field
+    if (this.newTask.trim() !== '' && this.dueDate.trim() !== '') {
+      this.tasks.push({
+        text: this.newTask,
+        completed: false,
+        dueDate: this.dueDate
+      });
+
+      // Reset fields
+      this.newTask = '';
+      this.dueDate = '';
     }
   }
 

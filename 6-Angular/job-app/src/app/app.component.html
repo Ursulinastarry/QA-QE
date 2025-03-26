@@ -1,0 +1,43 @@
+  <div class="container">
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+      <!-- Name Field -->
+      <div class="name-married">
+        <div class="fullname">
+          <label>Full Name:</label>
+          <input type="text" formControlName="fullName">
+          <div class="name" *ngIf="jobForm.get('fullName')?.invalid && jobForm.get('fullName')?.touched">
+            Name is required and must be at least 3 characters long.
+          </div>
+          <div class="name" *ngIf="jobForm.get('fullName')?.hasError('nameTaken')">
+            This name is already taken.
+          </div>
+        </div>
+        <!-- Email Field -->
+        <div class="email">
+          <label>Email:</label>
+          <input type="email" formControlName="email">
+          <div class="name" *ngIf="jobForm.get('email')?.invalid && jobForm.get('email')?.touched">
+            Enter a valid email.
+          </div>
+        </div>
+        <!-- Checkbox Field -->
+        <label>
+          <input type="checkbox" formControlName="isMarried"> Married
+        </label>
+      </div>
+      <!-- Dynamic Skills -->
+      <div class="skill-submit">
+        <div formArrayName="skills">
+          <div *ngFor="let skill of skills.controls; let i = index">
+            <input [formControlName]="i">
+            <button (click)="removeSkill(i)">Remove</button>
+          </div>
+        </div>
+        <button (click)="addSkill()">Add Skill</button>
+
+        <button type="submit" [disabled]="jobForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+
+<router-outlet></router-outlet>

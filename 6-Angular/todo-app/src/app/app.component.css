@@ -24,6 +24,7 @@
   /* Task Input */
   .task-input {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     justify-content: center;
     margin-bottom: 20px;

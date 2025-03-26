@@ -6,8 +6,15 @@
   <h2>My To-Do List</h2>
 
   <div class="task-input">
-    <input [(ngModel)]="newTask" type="text" placeholder="Enter a new task..." />
-    <button (click)="addTask()">Add</button>
+    <form (ngSubmit)="addTask()">
+      <div>
+        <input name="newTask" type="text" placeholder="Enter a new task..." [(ngModel)]="newTask" required />
+      </div>
+      <div>
+        <input name="dueDate" type="date" placeholder="Enter a due date..." [(ngModel)]="dueDate" required />
+      </div>
+      <button type="submit">Add</button>
+    </form>
   </div>
 
   <ul class="task-list">
@@ -16,12 +23,14 @@
         <button (click)="toggleTask(i)" class="done">
           {{ task.completed ? 'Undo' : 'Done' }}
         </button>
-        <span [class.text-decoration-line-through]="task.completed">{{ task.text }}</span>
+        <span [class.text-decoration-line-through]="task.completed">
+          {{ task.text }} (Due: {{ task.dueDate }})
+        </span>
         <button (click)="removeTask(i)" class="btn btn-sm btn-danger">❌</button>
       </div>
     </li>
   </ul>
-  
+
 </div>
 
 

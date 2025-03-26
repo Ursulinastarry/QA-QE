@@ -1,0 +1,103 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background-image: url('assets/job.jpg');
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 500px;
+    max-width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translate(-50%, -50%) scale(1.02);
+}
+
+.name-married {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fullname, .email {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+}
+
+input[type="text"], 
+input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus {
+    outline: none;
+    border-color: #4ad0ff;
+    box-shadow: 0 0 5px rgba(74, 208, 255, 0.3);
+}
+
+.skill-submit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button {
+    background: linear-gradient(135deg, #4ad0ff 0%, #34dbeb 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(74, 208, 255, 0.3);
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+
+/* Error state for form controls */
+.name {
+    color: #d9534f;
+    box-shadow: 0 0 5px rgba(217, 83, 79, 0.3);
+}

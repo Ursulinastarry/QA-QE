@@ -1,5 +1,5 @@
-
-<div>
+<div class="container">
+  <div>
     <label for="userSelect">Select User:</label>
     <select id="userSelect" (change)="onUserChange($event)">
       <option *ngFor="let user of users" [value]="user.id" [selected]="user.id === selectedUserId">
@@ -7,9 +7,9 @@
       </option>
     </select>
   </div>
-  
-<!-- Post List -->
-<div *ngIf="posts.length > 0">
+
+  <!-- Post List -->
+  <div *ngIf="posts.length > 0">
     <h3>Posts by Selected User</h3>
     <ul>
       <li *ngFor="let post of posts" [class.selected]="post.id === selectedPostId" (click)="onPostSelect(post.id)">
@@ -19,7 +19,7 @@
   </div>
 
   <!-- Comment Section -->
-<div *ngIf="comments.length > 0">
+  <div *ngIf="comments.length > 0">
     <h3>Comments on Selected Post</h3>
     <ul>
       <li *ngFor="let comment of comments">
@@ -27,3 +27,4 @@
       </li>
     </ul>
   </div>
+</div>
